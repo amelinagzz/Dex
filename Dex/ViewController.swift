@@ -19,6 +19,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var musicPlayer: AVAudioPlayer!
     var inSearchMode = false
     
+    override func viewWillAppear(animated: Bool) {
+        self.title = "Pokedex"
+        self.navigationController?.navigationBar.titleTextAttributes = [
+            NSFontAttributeName: UIFont(name: "PokemonSolidNormal", size: 24)!, NSForegroundColorAttributeName: UIColor.whiteColor()
+        ]
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collection.delegate = self
@@ -120,6 +127,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }else {
             poke = pokemon[indexPath.row]
         }
+        self.title = ""
         performSegueWithIdentifier("PokemonDetailVC", sender: poke)
     }
     

@@ -15,8 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-
         
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+
         UINavigationBar.appearance().titleTextAttributes = [
             NSFontAttributeName: UIFont(name: "PokemonSolidNormal", size: 24)!, NSForegroundColorAttributeName: UIColor.whiteColor()
         ]

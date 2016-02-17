@@ -22,15 +22,21 @@ class PokemonDetailVC: UIViewController {
     @IBOutlet weak var attackLbl: UILabel!
     @IBOutlet weak var currentEvoImg: UIImageView!
     @IBOutlet weak var nextEvoImg: UIImageView!
+    @IBOutlet weak var evoLbl: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = pokemon.name
-        mainImg.image = UIImage(named: "\(pokemon.pokedexID)")
-        
+        self.title = pokemon.name.capitalizedString
+        let img = UIImage(named: "\(pokemon.pokedexID)")
+        mainImg.image = img
+        currentEvoImg.image = img
         pokemon.downloadPokemonDetails { () -> () in
-            
-            
+            self.updateUI()
         }
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [
+            NSFontAttributeName: UIFont(name: "Helvetica", size: 20)!, NSForegroundColorAttributeName: UIColor.whiteColor()
+        ]
         
     }
 
@@ -39,4 +45,26 @@ class PokemonDetailVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func updateUI() {
+        descriptionLbl.text = pokemon.description
+        typeLbl.text = pokemon.type
+        defenseLbl.text = pokemon.defense
+        attackLbl.text = pokemon.attack
+        heightLbl.text = pokemon.height
+        weightLbl.text = pokemon.weight
+        pokedexLbl.text = "\(pokemon.pokedexID)"
+        
+        if pokemon.nextEvoID == "" {
+            evoLbl.text = "No Evolutions"
+            nextEvoImg.hidden = true
+        }else {
+            nextEvoImg.hidden = false
+            nextEvoImg.image = UIImage(named: pokemon.nextEvoID)
+            var str = "Next Evolution: \(pokemon.nextEvoTxt)"
+            if pokemon.nextEvoLvl != "" {
+                str += " - LVL \(pokemon.nextEvoLvl)"
+            }
+             evoLbl.text = str
+        }
+    }
 }
